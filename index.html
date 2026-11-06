@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Itinerary</title>
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#faf9fd" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#121318" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#faf9fd">
+<meta name="color-scheme" content="light only">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -19,7 +19,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400..700&display=swap" rel="stylesheet">
 <style>
 /* ===== Design tokens (Material 3) ===== */
-:root{
+:root{color-scheme:light only;
   /* color roles — seed #3d5ba9 */
   --primary:#3d5ba9; --on-primary:#fff; --primary-container:#dae2ff; --on-primary-container:#0e2c69;
   --secondary-container:#dde2f9; --on-secondary-container:#151b2c;
@@ -35,17 +35,7 @@
   --rs:8px; --rm:12px; --rl:16px; --rxl:28px;
   --font:"Google Sans Flex","Google Sans",Roboto,-apple-system,"Segoe UI",sans-serif;
 }
-@media (prefers-color-scheme: dark){
-  :root{
-    --primary:#b2c5ff; --on-primary:#0e2c69; --primary-container:#244381; --on-primary-container:#dae2ff;
-    --secondary-container:#3e4659; --on-secondary-container:#dde2f9;
-    --tertiary:#ffb870; --tertiary-container:#693c00; --on-tertiary-container:#ffdcbe;
-    --surface:#121318; --surface-low:#1a1b20; --surface-c:#1e1f25; --surface-high:#292a2f; --surface-highest:#34343a;
-    --on-surface:#e3e2e9; --on-surface-v:#c5c6d0; --outline:#8f9099; --outline-v:#44464f;
-    --green:#9cd5a8; --green-container:#0f4a20;
-    --r1:#0f3557; --r1o:#cfe4ff; --r2:#14401f; --r2o:#c3eac7; --r3:#003d39; --r3o:#bfeee8; --r4:#5a230f; --r4o:#ffdbcf; --r5:#32205a; --r5o:#eadcff; --r6:#2b2c31; --r6o:#c5c6d0;
-  }
-}
+
 /* ===== Type scale ===== */
 .display-s{font-size:36px;line-height:44px;font-weight:500;letter-spacing:-.25px}
 .headline-s{font-size:24px;line-height:32px;font-weight:500}
@@ -66,7 +56,7 @@ svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke
 
 /* ===== Top app bar ===== */
 header{position:sticky;top:0;z-index:20;background:var(--surface);padding:calc(env(safe-area-inset-top) + var(--s2)) var(--s4) var(--s2);transition:background .2s}
-header.line{background:var(--surface-c)}
+header.line{background:var(--surface)}
 .bar{display:flex;align-items:center;gap:var(--s1);max-width:600px;margin:0 auto;min-height:48px}
 .sync{flex:1;display:flex;align-items:center;gap:var(--s2);font-size:14px;color:var(--on-surface-v)}
 .sync i{width:8px;height:8px;border-radius:50%;background:var(--green)}
@@ -120,11 +110,20 @@ mark{background:var(--tertiary-container);color:var(--on-tertiary-container);bor
 /* stats row */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2);margin-top:var(--s5)}
 .stat{background:rgba(255,255,255,.55);border-radius:var(--rm);padding:var(--s3)}
-@media (prefers-color-scheme: dark){.stat{background:rgba(0,0,0,.2)}}
 .stat b{display:block;font-size:24px;line-height:32px;font-weight:500}
 .progress{height:8px;border-radius:4px;background:rgba(255,255,255,.55);margin-top:var(--s5);overflow:hidden}
 .progress i{display:block;height:100%;border-radius:4px;background:var(--primary)}
 
+.chips.sticky{position:sticky;top:calc(env(safe-area-inset-top) + 64px);z-index:10;background:var(--surface);padding-top:var(--s2);padding-bottom:var(--s2)}
+.loc{width:100%;text-align:left;border:0;background:var(--surface-low);border-radius:var(--rl);padding:var(--s4);display:flex;gap:var(--s4);align-items:center}
+.loc:active{background:var(--surface-c)}
+.locn{width:56px;height:56px;flex:none;border-radius:var(--rl);background:var(--rbg);color:var(--rfg);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.locn b{font-size:22px;line-height:26px;font-weight:500}
+.locn span{font-size:11px;line-height:14px;font-weight:600}
+.loc-hero{background:var(--rbg);color:var(--rfg);margin:var(--s3) 0 var(--s4);padding:var(--s4) var(--s5)}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);margin-top:var(--s5)}
+.pg{border:0;background:var(--surface-low);border-radius:var(--rl);padding:var(--s3) var(--s4);display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.pg.r{align-items:flex-end}
 /* ===== Flights ===== */
 .flight{background:var(--surface-low);border-radius:var(--rl);padding:var(--s4)}
 .flight .head{display:flex;justify-content:space-between;align-items:center;gap:var(--s2)}
@@ -203,10 +202,9 @@ mark{background:var(--tertiary-container);color:var(--on-tertiary-container);bor
 </header>
 <main id="view"></main>
 <nav id="nav"><div class="in">
-  <button data-v="today"><span class="ind"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>Today</button>
   <button data-v="plan"><span class="ind"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></span>Plan</button>
+  <button data-v="today"><span class="ind"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>Today</button>
   <button data-v="flights"><span class="ind"><svg class="i" viewBox="0 0 24 24"><path d="M2 16l20-6-3-2-6 1-5-6H6l2 7-4 1-2-2H1l1 5z"/><path d="M3 21h18"/></svg></span>Flights</button>
-  <button data-v="cars"><span class="ind"><svg class="i" viewBox="0 0 24 24"><path d="M5 17h14M3 13l2-6h14l2 6v4H3z"/><circle cx="7.5" cy="17" r="1.8"/><circle cx="16.5" cy="17" r="1.8"/></svg></span>Cars</button>
   <button data-v="pack"><span class="ind"><svg class="i" viewBox="0 0 24 24"><path d="M9 6V4h6v2"/><rect x="4" y="6" width="16" height="15" rx="2"/><path d="m9 13 2 2 4-4"/></svg></span>Pack</button>
 </div></nav>
 
@@ -357,8 +355,13 @@ const linkify=s=>esc(s).replace(/(https?:\/\/[^\s<]+)/g,u=>`<a href="${u}" targe
 const mapUrl=(q,area)=>`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(stripEmoji(q).replace(/^\*?\s*(optional:)?\s*|^(drive to|or drive to|from)\s+/ig,"").replace(/\(.*?\)/g,"").split("→").pop().trim()+", "+area)}`;
 let HL="";
 const hl=s=>{ const e=esc(s); if(!HL) return e; return e.replace(new RegExp("("+HL.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig"),"<mark>$1</mark>"); };
-function regionFor(d){ for(const r of DATA.regions) for(const day of r.days) if(key(day.date)===key(d)) return {r,day}; return null; }
-function placeOf(td){ if(!td) return TRAVEL; const rd=regionFor(td.date); if(rd) return rd.r;
+function regionFor(d,pref){ const k=key(d);
+  const own=r=>{ const day=r.days.find(x=>key(x.date)===k); return day?{r,day}:null; };
+  if(pref&&pref.days) return own(pref);
+  const td=DATA.timeline.find(x=>key(x.date)===k); const p=td?placeOf(td):null;
+  if(p&&p.days){ const o=own(p); if(o) return o; }
+  for(const r of DATA.regions){ const o=own(r); if(o) return o; } return null; }
+function placeOf(td){ if(!td) return TRAVEL;
   for(const r of DATA.regions) if(r.match.test(td.locRaw)) return r; if(/buenos/i.test(td.locRaw)) return BA; return TRAVEL; }
 const cap=s=>s?s.charAt(0).toUpperCase()+s.slice(1):s;
 const nice=s=>cap(stripEmoji(s).replace(/^\*\s*/,"").replace(/^optional:\s*/i,"").replace(/\s*>\s*/g," → ").replace(/^Buenos$/i,"Buenos Aires"));
@@ -403,8 +406,17 @@ function flightCard(f){
   </div>`;
 }
 
+function locations(){
+  const m=new Map();
+  for(const d of DATA.timeline){ const p=placeOf(d); if(!m.has(p)) m.set(p,{p,days:[],ranges:[]}); m.get(p).days.push(d); }
+  for(const r of DATA.regions){ if(!m.has(r)) m.set(r,{p:r,days:[],ranges:[]}); const l=m.get(r);
+    for(const day of r.days) if(!l.days.some(d=>key(d.date)===key(day.date))) l.days.push(DATA.timeline.find(t=>key(t.date)===key(day.date))||{date:day.date,loc:r.name,locRaw:r.name}); }
+  for(const l of m.values()){ l.days.sort((a,b)=>a.date-b.date);
+    for(const d of l.days){ const r=l.ranges[l.ranges.length-1]; if(r&&dayDiff(d.date,r[1])===1) r[1]=d.date; else l.ranges.push([d.date,d.date]); } }
+  return [...m.values()].filter(l=>l.days.length).sort((a,b)=>a.days[0].date-b.days[0].date);
+}
 // ---------- views ----------
-let VIEW="today", REGION=null;
+let VIEW="plan", LOC=null;
 const V={
   today(){
     const t=today(), tl=DATA.timeline; if(!tl.length) return `<div class="empty">No timeline found in the sheet.</div>`;
@@ -434,27 +446,30 @@ const V={
     return h;
   },
   plan(){
-    const t=today();
-    let h=pageTitle("Plan")+`<div class="chips"><button class="chip ${REGION==null?"on":""}" data-r="">${REGION==null?I.chk:""}All days</button>${DATA.regions.map((r,i)=>`<button class="chip ${REGION===i?"on":""}" data-r="${i}" style="--rc:var(--${r.tone}o)">${REGION===i?I.chk:'<span class="sw"></span>'}${esc(r.short)}</button>`).join("")}</div>`;
-    const head=(p,a,b,n)=>`<div class="section" style="${rv(p)}"><span class="title-l">${esc(p.name)}</span><span class="badge region">${fmt(a,{day:"numeric",month:"short"})}${n>1?" – "+fmt(b,{day:"numeric",month:"short"}):""}</span></div>`;
-    if(REGION==null){
-      const groups=[]; for(const d of DATA.timeline){ const p=placeOf(d); const g=groups[groups.length-1]; if(g&&g.p===p) g.days.push(d); else groups.push({p,days:[d]}); }
-      for(const g of groups){
-        h+=head(g.p,g.days[0].date,g.days[g.days.length-1].date,g.days.length)+`<div class="stack">`;
-        const simple=[]; const flush=()=>{ if(simple.length){ h+=`<div class="card flat" style="${rv(g.p)}">${simple.join("")}</div>`; simple.length=0; } };
-        for(const d of g.days){ const rd=regionFor(d.date);
-          if(rd){ flush(); h+=dayCard(rd.r,rd.day); }
-          else { const isT=key(d.date)===key(t), fl=DATA.flights.filter(f=>key(f.date)===key(d.date));
-            simple.push(`<div class="list-item" id="d-${key(d.date)}">${datebox(d.date)}<div class="grow"><div class="title-m">${esc(nice(d.loc))}</div>
-              <div class="body-m v">${fl.length?fl.map(f=>`${esc(f.no)} · ${esc(f.fromAp)} → ${esc(f.toAp)} ${esc(f.dep)}`).join("<br>"):esc(d.what||"Free day")}${d.night?" · "+esc(d.night):""}</div></div>${isT?'<span class="badge primary">Today</span>':""}</div>`); }
-        }
-        flush(); h+=`</div>`;
-      }
-      return h;
+    const t=today(), L=locations();
+    const chips=`<div class="chips sticky"><button class="chip ${LOC==null?"on":""}" data-loc="">${LOC==null?I.chk:""}Overview</button>${L.map((l,i)=>`<button class="chip ${LOC===i?"on":""}" data-loc="${i}" style="--rc:var(--${l.p.tone}o)">${LOC===i?I.chk:'<span class="sw"></span>'}${esc(l.p.short)}</button>`).join("")}</div>`;
+    if(LOC==null){
+      let h=pageTitle("Plan",`${DATA.timeline.length} days · ${L.length} places`)+chips+`<div class="stack" style="margin-top:16px">`;
+      L.forEach((l,i)=>{ const now=l.days.some(d=>key(d.date)===key(t))&&placeOf(DATA.timeline.find(x=>key(x.date)===key(t)))===l.p;
+        const hi=l.days.map(d=>l.p.days?regionFor(d.date,l.p):null).filter(Boolean).map(x=>nice(x.day.title)).filter(x=>x&&!/^(day \d+|drive|extra day)$/i.test(x));
+        h+=`<button class="loc" data-loc="${i}" style="${rv(l.p)}"><div class="locn"><b>${l.days.length}</b><span>${l.days.length>1?"days":"day"}</span></div>
+          <div class="grow"><div class="title-m">${esc(l.p.name)} ${now?'<span class="badge primary" style="margin-left:4px">Now</span>':""}</div>
+          <div class="body-m v">${l.ranges.map(r=>fmt(r[0],{day:"numeric",month:"short"})+(r[1]>r[0]?" – "+fmt(r[1],{day:"numeric",month:"short"}):"")).join(", ")}</div>
+          ${hi.length?`<div class="body-m" style="margin-top:4px">${hi.slice(0,4).map(esc).join(" · ")}</div>`:""}</div><span class="v">${I.chev}</span></button>`; });
+      return h+`</div>`;
     }
-    const r=DATA.regions[REGION];
-    if(!r.days.length) return h+`<div class="empty">No days found in this tab.</div>`;
-    return h+head(r,r.days[0].date,r.days[r.days.length-1].date,r.days.length)+`<div class="stack">${r.days.map(d=>dayCard(r,d)).join("")}</div>`;
+    const l=L[LOC], first=l.days[0].date, last=l.days[l.days.length-1].date;
+    let h=chips+`<div class="card loc-hero" style="${rv(l.p)}"><div class="label-l">${l.ranges.map(r=>fmt(r[0],{day:"numeric",month:"short"})+(r[1]>r[0]?" – "+fmt(r[1],{day:"numeric",month:"short"}):"")).join(", ")} · ${l.days.length} ${l.days.length>1?"days":"day"}</div><div class="headline-s" style="margin-top:2px">${esc(l.p.name)}</div></div><div class="stack">`;
+    const simple=[]; const flush=()=>{ if(simple.length){ h+=`<div class="card flat" style="${rv(l.p)}">${simple.join("")}</div>`; simple.length=0; } };
+    for(const d of l.days){ const rd=l.p.days?regionFor(d.date,l.p):null;
+      if(rd){ flush(); h+=dayCard(rd.r,rd.day); }
+      else { const isT=key(d.date)===key(t), fl=DATA.flights.filter(f=>key(f.date)===key(d.date));
+        simple.push(`<div class="list-item" id="d-${key(d.date)}">${datebox(d.date)}<div class="grow"><div class="title-m">${esc(nice(d.loc))}</div>
+          <div class="body-m v">${fl.length?fl.map(f=>`${esc(f.no)} · ${esc(f.fromAp)} → ${esc(f.toAp)} ${esc(f.dep)}`).join("<br>"):esc(d.what||"Free day")}${d.night?" · "+esc(d.night):""}</div></div>${isT?'<span class="badge primary">Today</span>':""}</div>`); } }
+    flush(); h+=`</div>`;
+    const prev=L[LOC-1], next=L[LOC+1];
+    h+=`<div class="pager">${prev?`<button class="pg" data-loc="${LOC-1}"><span class="body-m v">Previous</span><span class="title-s">‹ ${esc(prev.p.short)}</span></button>`:"<span></span>"}${next?`<button class="pg r" data-loc="${LOC+1}"><span class="body-m v">Next</span><span class="title-s">${esc(next.p.short)} ›</span></button>`:"<span></span>"}</div>`;
+    return h;
   },
   flights(){
     const t=today(), up=DATA.flights.filter(f=>!(f.date&&f.date<t)), past=DATA.flights.filter(f=>f.date&&f.date<t);
@@ -495,16 +510,16 @@ function render(){
   document.getElementById("view").innerHTML=V[HL?"search":VIEW]();
   document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",!HL&&b.dataset.v===VIEW));
 }
-function goto(k){ VIEW="plan"; REGION=null; HL=""; render(); const el=document.getElementById("d-"+k);
+function goto(k){ VIEW="plan"; HL=""; const L=locations(); const td=DATA.timeline.find(x=>key(x.date)===k), pp=td?placeOf(td):null; let i=L.findIndex(l=>l.p===pp); if(i<0) i=L.findIndex(l=>l.days.some(d=>key(d.date)===k)); LOC=i<0?null:i; render(); const el=document.getElementById("d-"+k);
   if(el) scrollTo({top:el.getBoundingClientRect().top+scrollY-document.getElementById("hdr").offsetHeight-12,behavior:"smooth"}); }
 // ---------- events ----------
 document.getElementById("nav").onclick=e=>{const b=e.target.closest("button"); if(!b) return;
   VIEW=b.dataset.v; HL=""; document.getElementById("search").value=""; document.getElementById("searchWrap").style.display="none";
   try{localStorage.setItem("trip-view",VIEW);}catch(_){}
   render(); scrollTo(0,0);
-  if(VIEW==="plan"&&REGION==null){ const el=document.querySelector(".day.is-today"); el&&goto(el.id.slice(2)); } };
+  if(false){ const el=document.querySelector(".day.is-today"); el&&goto(el.id.slice(2)); } };
 document.getElementById("view").onclick=e=>{
-  const c=e.target.closest("[data-r]"); if(c){ REGION=c.dataset.r===""?null:+c.dataset.r; render(); scrollTo(0,0); return; }
+  const c=e.target.closest("[data-loc]"); if(c){ LOC=c.dataset.loc===""?null:+c.dataset.loc; render(); scrollTo(0,0); const on=document.querySelector(".chip.on"); on&&on.scrollIntoView({inline:"center",block:"nearest"}); return; }
   const g=e.target.closest("[data-goto]"); if(g){ goto(g.dataset.goto); return; }
   const cp=e.target.closest("[data-copy]"); if(cp){ navigator.clipboard?.writeText(cp.dataset.copy).then(()=>{const t=cp.innerHTML; cp.textContent="Copied"; setTimeout(()=>cp.innerHTML=t,1200);}); }
 };
@@ -519,7 +534,7 @@ setInterval(setStatus,60000);
 // ---------- unlock & start ----------
 function start(){
   document.getElementById("lock").style.display="none";
-  try{ VIEW=localStorage.getItem("trip-view")||"today"; }catch(_){}
+  try{ const v=localStorage.getItem("trip-view"); VIEW=["plan","today","flights","pack"].includes(v)?v:"plan"; }catch(_){}
   const c=loadCached(); if(c){ DATA=build(c); setStatus(); render(); }
   refresh();
 }
